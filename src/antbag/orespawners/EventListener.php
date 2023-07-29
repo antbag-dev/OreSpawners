@@ -155,7 +155,7 @@ class EventListener implements Listener
                     if (in_array($item->getId(), $blocks) && $item->getNamedTag()->hasTag("orespawner")) {
                         if ($event->getBlock()->getId() == $item->getId()) {
                             if (!($stacked >= intval($this->cfg["max"]))) {
-                                $event->cancel(=);
+                                $event->cancel();
                                 $tile->setData("stacked", $stacked + 1);
                                 $item->setCount($item->getCount() - 1);
                                 $player->getInventory()->setItem($player->getInventory()->getHeldItemIndex(), $item);
