@@ -17,6 +17,8 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\block\BlockUpdateEvent;
 
+use antbag\orespawners\Main;
+
 class EventListener implements Listener
 {
 
