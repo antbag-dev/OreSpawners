@@ -2,4 +2,4 @@ name: OreSpawners
 version: 1.4.0
 api: 5.0.0
 author: antbag
-main: antbag\OreSpawners\Main
+main: antbag\orespawners\Main
