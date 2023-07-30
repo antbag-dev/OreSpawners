@@ -47,12 +47,11 @@ class EventListener implements Listener
 
         if (in_array($bbelow->getId(), $blocks)) {
         $tile = $event->getBlock()->getWorld()->getTile($bbelow);
-        if (!$tile instanceof SimpleTile) return;
         $ore = $this->checkBlock($bbelow);
         $delay = $this->getDelay($bbelow);
         if (!$event->isCancelled()) {
         $event->cancel();
-        if ($event->getBlock()->getId() == $ore->getId()) return;
+        if ($event->getBlock()->getBlockTypeId() == $ore->getBlockTypeId()) return;
         $this->plugin->getScheduler()->scheduleDelayedTask(new ClosureTask(function (int $currentTick)use ($event, $ore): void {
         if ($event->getBlock()->getWorld() !== null) {
         $event->getBlock()->getWorld()->getPosition()->setBlock($event->getBlock()->floor(), $ore, false, true);
@@ -123,10 +122,7 @@ class EventListener implements Listener
         if (in_array($block->getId(), $blocks)) {
             if ($item->getNamedTag()->hasTag("orespawner")) {
                 $tile = $event->getPlayer()->getLevel()->getTile($event->getBlock()->asVector3());
-                if (!$tile instanceof SimpleTile) {
-                    $tileinfo = new TileInfo($event->getBlock(), ["id" => "simpleTile", "stacked" => 1]);
-                    new SimpleTile($event->getPlayer()->getWorld(), $tileinfo);
-                }
+                
             }
         }
         
@@ -149,7 +145,6 @@ class EventListener implements Listener
         }
         if (in_array($event->getBlock()->getId(), $blocks)) {
             $tile = $event->getPlayer()->getLevel()->getTile($event->getBlock());
-            if ($tile instanceof SimpleTile) {
                 if (!$player->getGamemode() == 1) {
                     $stacked = $tile->getData("stacked")->getValue();
                     if (in_array($item->getId(), $blocks) && $item->getNamedTag()->hasTag("orespawner")) {
@@ -196,7 +191,6 @@ class EventListener implements Listener
         if ($event->isCancelled()) return;
         if (in_array($event->getBlock()->getId(), $blocks)) {
             $tile = $event->getBlock()->getLevel()->getTile($block);
-            if (!$tile instanceof SimpleTile) return;
             $tile = $player->getLevel()->getTile($block->asVector3());
             $type = $this->checkSpawner($block);
             $count = $tile instanceof SimpleTile ? $tile->getData("stacked")->getValue() : 1;
