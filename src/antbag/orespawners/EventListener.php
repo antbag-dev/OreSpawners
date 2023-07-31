@@ -171,7 +171,6 @@ class EventListener implements Listener
             }
             return false;
         }
-        return false;
     }
 
     public function getTile(Vector3 $pos): ?Tile
